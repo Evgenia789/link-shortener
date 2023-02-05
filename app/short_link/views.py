@@ -14,7 +14,7 @@ from app.short_link.models import Link
 from app.database.db import db
 from app.short_link.forms import LinkCreateForm
 
-module = Blueprint('links', __name__, url_prefix ='/link_shortener')
+module = Blueprint('views', __name__, url_prefix ='/link_shortener')
 
 
 def log_error(*args, **kwargs):
@@ -43,7 +43,7 @@ def index():
         log_error('Error while querying database', exc_info=e)
         flash('Во время запроса произошла непредвиденная ошибка.', 'danger')
         abort(500)
-    return render_template('entity/index.html', object_list=links)
+    return render_template('link/index.html', object_list=links)
 
 @module.route('/shorten', methods=['POST'])
 def create():

@@ -1,12 +1,12 @@
 import os
 
 
-class Config(object):
+class Config:
     DEBUG = False
     # Включение защиты против "Cross-site Request Forgery (CSRF)"
     CSRF_ENABLED = True
-    SECRET_KEY = os.environ['SECRET_KEY']
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 

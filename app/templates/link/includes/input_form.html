@@ -1,0 +1,14 @@
+<div class="col-lg-4 col-lg-offset-4">
+    <h1 class="text-center">Link Shortener</h1>
+    <form method="POST" action="{{ url_for('views.create') }}">
+        <div class="form-group">
+            <input type="long_url" class="form-control" id="long_url" aria-describedby="emailHelp" placeholder="Long url">
+        </div>
+        <div class="form-group">
+        <fieldset disabled>
+            <input type="short_url" class="form-control" id="short_url" placeholder="Short_url">
+        </fieldset>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Short</button>
+    </form>
+</div>

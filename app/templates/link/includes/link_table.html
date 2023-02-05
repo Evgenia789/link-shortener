@@ -1,0 +1,14 @@
+<table class="table table-sm">
+    <thead>
+        <h4 class="text-center">History</h4>
+    <tr></tr>
+    </thead>
+    <tbody>
+    {% for obj in object_list %}
+    <tr>
+        <th scope="row">{{ obj.long_url }}</th>
+        <td>{{ obj.short_url }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
