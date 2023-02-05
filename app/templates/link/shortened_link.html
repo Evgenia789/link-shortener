@@ -1,0 +1,14 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %} Link Shortener {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        {% include 'link/includes/input_form.html' %}
+    </div>
+    <div class="row justify-content-center"></div>
+        {% include 'link/includes/link_table.html' %}
+    </div>
+</div>
+{% endblock %}
