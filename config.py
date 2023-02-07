@@ -2,8 +2,8 @@ import os
 
 
 class Config:
+    """A class used to represent base config"""
     DEBUG = False
-    # Включение защиты против "Cross-site Request Forgery (CSRF)"
     CSRF_ENABLED = True
     SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
@@ -11,11 +11,13 @@ class Config:
 
 
 class ProductionConfig(Config):
+    """A class used to represent production config"""
     FLASK_ENV = 'production'
     DEBUG = False
 
 
 class DevelopmentConfig(Config):
+    """A class used to represent development config"""
     FLASK_ENV = 'development'
     DEVELOPMENT = True
     DEBUG = True

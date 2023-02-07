@@ -5,7 +5,18 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
-        {% include 'link/includes/input_form.html' %}
+        <div class="col-lg-4 col-lg-offset-4">
+            <a href="{{ url_for('views.index') }}"><h1 class="text-center">Link Shortener</h1></a>
+            <form method="POST" action="{{ url_for('views.create') }}">
+                <div class="form-group">
+                    <input type="text" name="long_url" class="form-control" value="{{object.long_url}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="short_url" class="form-control" value="http://127.0.0.1:5000/link_shortener/{{object.short_url}}">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Short</button>
+            </form>
+        </div>
     </div>
     <div class="row justify-content-center"></div>
         {% include 'link/includes/link_table.html' %}

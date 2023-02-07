@@ -1,14 +1,19 @@
-import os
 from app.database.db import db
 from app.short_link.models import Link
-from flask import Flask
+from flask import Flask, app
 from flask_bootstrap import Bootstrap
 
-def create_app(name_config="config.DevelopmentConfig"):
-    # create and configure the app
-    app = Flask(__name__, instance_relative_config=True, template_folder='app/templates')
-    app.config.from_object(name_config)
-    # app.config.from_envvar('YOURAPPLICATION_SETTINGS')
+
+def get_flask_app(config: str = "config.DevelopmentConfig") -> app.Flask:
+    """
+    Initializes Flask app with given configuration.
+    Main entry point for wsgi (gunicorn) server.
+    :param config: Configuration dictionary
+    :return: app
+    """
+    app = Flask(__name__, instance_relative_config=True,
+                template_folder='app/templates')
+    app.config.from_object(config)
 
     db.init_app(app)
     with app.app_context():
@@ -23,4 +28,5 @@ def create_app(name_config="config.DevelopmentConfig"):
 
 
 if __name__ == '__main__':
-    create_app().run()
+    app = get_flask_app()
+    app.run()

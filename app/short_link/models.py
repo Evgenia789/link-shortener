@@ -1,11 +1,16 @@
-import secrets
-import string
 from datetime import datetime
+import secrets
 from sqlalchemy import Column, Integer, String, DateTime
+import string
 
 from app.database.db import db
 
+
 class Link(db.Model):
+    """
+    A class used to represent a link.
+    A short link is automatically generated before saving.
+    """
     __tablename__ = 'links'
 
     id = Column(Integer, primary_key=True)
@@ -19,11 +24,11 @@ class Link(db.Model):
         self.short_url = self.generate_short_link()
 
     def generate_short_link(self):
+        """Check existing and generate a short URL"""
         characters = string.digits + string.ascii_letters
         short_url = "".join(secrets.choice(characters) for _ in range(8))
-        link = self.query.filter_by(short_url=short_url).first()
-
+        link = Link.query.filter_by(short_url=short_url).first() is None
         if link:
-            return self.generate_short_link()
+            return short_url
         
-        return short_url
+        return link.short_url

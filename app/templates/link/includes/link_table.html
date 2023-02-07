@@ -6,8 +6,16 @@
     <tbody>
     {% for obj in object_list %}
     <tr>
-        <th scope="row">{{ obj.long_url }}</th>
-        <td>{{ obj.short_url }}</td>
+        <th scope="row">
+            {{ obj.long_url }} >>>
+            <a href="{{obj.short_url}}">
+                <span style="color:blue">
+                    http://127.0.0.1:5000/link_shortener/{{ obj.short_url }}
+                </span>
+            </a>
+        </th>
+        <td>{{ obj.created_at.strftime("%d-%m-%Y %H:%M:%S") }}</td>
+        <td><span style="color:blue">{{ obj.clicks }}</span></td>
     </tr>
     {% endfor %}
     </tbody>
