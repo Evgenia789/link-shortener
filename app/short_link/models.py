@@ -1,9 +1,8 @@
 from datetime import datetime
-import secrets
 from sqlalchemy import Column, Integer, String, DateTime
-import string
 
 from app.database.db import db
+from app.utils.keygen import generate_random_key
 
 
 class Link(db.Model):
@@ -21,14 +20,12 @@ class Link(db.Model):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.short_url = self.generate_short_link()
+        self.short_url = self.create_short_url()
 
-    def generate_short_link(self):
-        """Check existing and generate a short URL"""
-        characters = string.digits + string.ascii_letters
-        short_url = "".join(secrets.choice(characters) for _ in range(8))
-        link = Link.query.filter_by(short_url=short_url).first() is None
-        if link:
-            return short_url
-        
-        return link.short_url
+    def create_short_url(self):
+        """Check the existence and uniqueness of the short URL"""
+        key = generate_random_key()
+        while Link.query.filter_by(short_url=key).first() is not None:
+            key = generate_random_key()
+
+        return key

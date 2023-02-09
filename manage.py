@@ -3,6 +3,10 @@ from app.short_link.models import Link
 from flask import Flask, app
 from flask_bootstrap import Bootstrap
 
+import logging
+import logging.config
+import yaml
+
 
 def get_flask_app(config: str = "config.DevelopmentConfig") -> app.Flask:
     """
@@ -11,6 +15,10 @@ def get_flask_app(config: str = "config.DevelopmentConfig") -> app.Flask:
     :param config: Configuration dictionary
     :return: app
     """
+    with open('config.yaml', 'r') as f:
+        config_log = yaml.load(f, Loader=yaml.FullLoader)
+    logging.config.dictConfig(config_log)
+
     app = Flask(__name__, instance_relative_config=True,
                 template_folder='app/templates')
     app.config.from_object(config)
@@ -18,11 +26,11 @@ def get_flask_app(config: str = "config.DevelopmentConfig") -> app.Flask:
     db.init_app(app)
     with app.app_context():
         db.create_all()
-    
+
     from app.short_link import views
-    
+
     app.register_blueprint(views.module)
-    bootstrap = Bootstrap(app)
+    Bootstrap(app)
 
     return app
 
