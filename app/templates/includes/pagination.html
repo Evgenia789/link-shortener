@@ -1,23 +1,19 @@
-<div class="pagination">
-    {% if pagination.has_prev %}
-        <span>
-            <a class='page-number' href="{{ url_for('views.index', page=pagination.prev_num) }}">{{ '<<<' }}</a>
-        </span>
-    {% endif %}
-
-    {% for number in pagination.iter_pages() %}
-        {% if pagination.page != number %}
-            <span>
-                <a class='page-number' href="{{ url_for('views.index', page=number) }}">{{ number }}</a>
-            </span>
-        {% else %}
-            <span class='current-page-number'>{{ number }}</span>
-        {% endif %}
-    {% endfor %}
-
-    {% if pagination.has_next %}
-        <span>
-            <a class='page-number' href="{{ url_for('views.index', page=pagination.next_num) }}">{{ '>>>' }}</a>
-        </span>
-    {% endif %}
-</div>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+            <a class="page-link" href="{{ url_for('views.index', page=pagination.prev_num) }}" tabindex="-1">Previous</a>
+        </li>
+        {% for number in pagination.iter_pages() %}
+            {% if pagination.page != number %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('views.index', page=number) }}">{{ number }}</a></li>
+            {% else %}
+                <li class="page-item active">
+                    <a class="page-link" href="{{ url_for('views.index', page=number) }}">{{ number }} <span class="sr-only">(current)</span></a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">   
+            <a class="page-link" href="{{ url_for('views.index', page=pagination.next_num) }}">Next</a>
+        </li>
+    </ul>
+</nav>
