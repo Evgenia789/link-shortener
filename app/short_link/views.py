@@ -35,15 +35,15 @@ def index():
     """Get all URLs"""
     links = None
     try:
-        links = Link.query.order_by(Link.created_at.desc()).all()
+        links = Link.query.order_by(Link.created_at.desc())
+        page = request.args.get('page', 1, type=int)
+        pagination = db.paginate(links, page=page, per_page=5)
         db.session.commit()
     except SQLAlchemyError as e:
         log_error('Error while querying database', exc_info=e)
         abort(HTTPStatus.INTERNAL_SERVER_ERROR)
 
-    context = {"object_list": links}
-
-    return render_template('link/index.html', context=context)
+    return render_template('link/index.html', pagination=pagination)
 
 
 @module.route('/shorten', methods=['GET', 'POST'])
@@ -56,15 +56,19 @@ def create_url():
         ).first() is None):
             db.session.add(Link(**form.data))
             db.session.commit()
+
+        links = Link.query.order_by(Link.created_at.desc())
+        page = request.args.get('page', 1, type=int)
+        pagination = db.paginate(links, page=page, per_page=5)
+        object = Link.query.filter_by(long_url=form.data['long_url']).first()
     except SQLAlchemyError as e:
         log_error('There was error while querying database', exc_info=e)
         db.session.rollback()
 
-    context = {
-        "object": Link.query.filter_by(long_url=form.data['long_url']).first(),
-        "object_list": Link.query.order_by(Link.created_at.desc()).all(),
-        "base_url": Config.BASE_URL+module.url_prefix,
-        "form": form
-    }
+    base_url = Config.BASE_URL+module.url_prefix
 
-    return render_template('link/shortened_link.html', context=context)
+    return render_template('link/shortened_link.html',
+                           object=object,
+                           pagination=pagination,
+                           base_url=base_url,
+                           form=form)

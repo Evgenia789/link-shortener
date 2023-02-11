@@ -10,10 +10,10 @@
             <form method="POST" action="{{ url_for('views.create_url') }}">
                 <div class="form-group">
                     {% include 'includes/error.html' %}
-                    <input type="text" name="long_url" class="form-control" value="{{context.object.long_url}}">
+                    <input type="text" name="long_url" class="form-control" value="{{object.long_url}}">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="short_url" class="form-control" value="{{context.base_url}}{{context.object.short_url}}">
+                    <input type="text" name="short_url" class="form-control" value="{{base_url}}{{object.short_url}}">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Short</button>
             </form>
@@ -21,6 +21,8 @@
     </div>
     <div class="row justify-content-center"></div>
         {% include 'link/includes/link_table.html' %}
+        {% include 'includes/pagination.html' %}
     </div>
+   
 </div>
 {% endblock %}

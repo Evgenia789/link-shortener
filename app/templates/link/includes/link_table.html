@@ -4,7 +4,7 @@
     <tr></tr>
     </thead>
     <tbody>
-    {% for obj in context.object_list %}
+    {% for obj in pagination.items %}
     <tr>
         <th scope="row">
             {{ obj.long_url }} >>>
