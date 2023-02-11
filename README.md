@@ -1,37 +1,35 @@
 # Link-shortener
- URL-адреса могут быть очень длинными и неудобными для пользователя. Здесь может пригодиться сокращатель URL. Средство сокращения URL-адресов сокращает количество символов в URL-адресе, облегчая его чтение, запоминание и распространение.
- 
- ## Cтек технологий
+URLs can be extremely long and not user-friendly. This is where a URL shortener can come in handy. A URL shortener reduces the number of characters in a URL, making it easier to read, remember, and share.
 
-- проект написан на Python3.10 с использованием веб-фреймворка Flask
-- база данных - SQLlite
-- система управления версиями - git
+ ## Technology stack
 
-## Как запустить проект:
-Клонировать репозиторий и перейти в него в командной строке:
+- Python3.10 
+- Flask
+- database - SQLlite
+- git
+
+## Installation
+Clone the repo and go to it in the command line:
 ```
     git clone https://github.com/Evgenia789/link-shortener.git
 ```
 ```
     cd link-shortener
 ```
-Cоздать и активировать виртуальное окружение:
+Set up a virtual environment
 ```
     python -m venv env
 ```
 ```
     source venv/Scripts/activate
 ```
-```
-    python3 -m pip install --upgrade pip
-```
-Установить зависимости из файла requirements.txt:
+Install all dependencies  
 ```
     pip install -r requirements.txt
 ```
-Запустить проект:
+Run the project
 ```
     python3 manage.py runserver
 ```
 ____
-Ваш проект запустился на http://127.0.0.1:5000/link_shortener 
+Your project started on http://127.0.0.1:5000/link_shortener 
